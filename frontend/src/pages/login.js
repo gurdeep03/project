@@ -9,26 +9,28 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
-      event.preventDefault();
-
-      try {
-          // Make a POST request to the /login endpoint
-          const response = await axios.post('http://localhost:4000/login', {
-              email,
-              password,
-          });
-
-          if (response.data.success) {
-              // Redirect to a protected route after successful login
-              navigate('/new');
-          } else {
-              setError('Invalid email or password');
-          }
-      } catch (err) {
-          setError('Error logging in. Please try again.');
-          console.error('Login error:', err);
+    event.preventDefault();
+  
+    try {
+      // Make a POST request to the /login endpoint
+      const response = await axios.post('http://localhost:5000/routes/auth/login', {
+        email,
+        password,
+      });
+  
+      if (response.data.success) {
+        console.log('Login successful:', response.data); // Debugging
+        navigate('/new'); // Redirect after successful login
+      } else {
+        console.log('Login failed:', response.data.message); // Debugging
+        setError(response.data.message || 'Invalid email or password');
       }
+    } catch (err) {
+      console.error('Login error:', err.response?.data || err.message); // Debugging
+      setError('Error logging in. Please try again.');
+    }
   };
+  
 
   return (
     <>

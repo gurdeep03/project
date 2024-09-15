@@ -11,28 +11,28 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     const data = {
       name: name,
       email: email,
       password: password,
     };
-
-    // Log the user-entered values to the console
-    
-
-    axios.post('http://localhost:4000/register', data)
+  
+    console.log('Sending data:', data); // Log data to ensure it’s correct
+  
+    axios.post('http://localhost:5000/routes/auth/register', data)
       .then(response => {
         setMessage('Registration successful!');
         console.log('Registration successful!');
         console.log('User Entered Values:', data);
-        
+  
         setTimeout(() => {
-          navigate('../new'); // Redirect to new.js after a short delay
+          navigate('/new'); // Adjust the route to correct path
         }, 2000); // 2-second delay
       })
       .catch(error => {
-        setMessage('There was an error registering. Please try again.');
+        const errorMessage = error.response?.data?.message || 'There was an error registering. Please try again.';
+        setMessage(errorMessage);
         console.error('There was an error registering!', error);
       });
   };
