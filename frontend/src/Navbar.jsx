@@ -14,6 +14,7 @@ import History from './pages/bookshelf/genres/history';
 import Philosophy from './pages/bookshelf/genres/philosophy';
 import Poetry from './pages/bookshelf/genres/poetry';
 import New from './new';
+import UploadBook from './pages/UploadBook';
 const Navbar = () => {
   const [showBookshelf, setShowBookshelf] = useState(false);
   const bookshelfRef = useRef(null);
@@ -72,6 +73,7 @@ const Navbar = () => {
         <Route path="/main" element={<Hero />} /> {/* Add route for the main page */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/file-upload" element={<UploadBook />} />
         <Route path="/bookshelf" element={<Bookshelf />} /> {/* Bookshelf as a separate route */}
         <Route path="/genre/fiction" element={<Fiction />} />
         <Route path="/genre/mystery" element={<Mystery />} />

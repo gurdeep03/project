@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const fileUploadRoutes = require('./routes/fileUpload'); 
+
 require('dotenv').config();
 
 const app = express();
@@ -15,8 +17,9 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-const authRoutes = require('./routes/auth'); // Import auth routes
-app.use('/routes/auth', authRoutes); // Use auth routes
+const authRoutes = require('./routes/auth'); 
+app.use('/routes/auth', authRoutes); 
+app.use('/routes/file-upload', fileUploadRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
