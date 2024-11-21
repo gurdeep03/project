@@ -20,7 +20,7 @@ const UploadBook = () => {
         formData.append('description', description);
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/uploads`, formData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/routes/file-upload/uploads`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             
