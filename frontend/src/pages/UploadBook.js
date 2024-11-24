@@ -14,18 +14,27 @@ const UploadBook = () => {
     const handleUpload = async (e) => {
         e.preventDefault();
 
+        if (!file) {
+            setMessage('Please select a file to upload.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('file', file);
         formData.append('title', title);
         formData.append('description', description);
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/routes/file-upload/uploads`, formData, {
+            const apiUrl = `${process.env.REACT_APP_API_URL}/books/upload`;
+            console.log(`Uploading to: ${apiUrl}`);
+            console.log('FormData:', formData);
+            const response = await axios.post(apiUrl, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            
+
             setMessage(response.data.message);
         } catch (error) {
+            console.error('Error uploading file:', error);
             setMessage('Error uploading file.');
         }
     };
