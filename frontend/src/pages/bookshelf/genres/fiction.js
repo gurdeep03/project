@@ -51,7 +51,6 @@ const Romance = () => {
             border-radius: 10px;
             padding: 20px;
             text-align: center;
-            
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             z-index: 1;
             grid-template-rows: auto 1fr auto;
