@@ -1,18 +1,18 @@
 const asyncHandler = require('express-async-handler');
 const multer = require('multer');
-const File = require('../models/fileModels'); // Import File schema
+const File = require('../models/fileModels'); 
 
-// Configure Multer storage
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '/uploads/'); // Directory where files will be stored
+    destination: (_req, file, cb) => {
+        cb(null, '/uploads/'); 
     },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+    filename: (_req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
     },
 });
 
-// Multer instance
+
 const upload = multer({ storage });
 
 
@@ -42,7 +42,7 @@ const UploadBook = asyncHandler ( async (req, res) => {
         res.status(500).json({ message: 'Error saving file metadata.', error });
     }
 });
-const Allbooks = asyncHandler(async (req, res) => {
+const Allbooks = asyncHandler(async (_req, res) => {
     const files = await File.find();
     res.status(200).json({ files });
 });

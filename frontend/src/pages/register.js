@@ -20,8 +20,8 @@ const Register = () => {
   
     console.log('Sending data:', data); // Log data to ensure it’s correct
   
-    axios.post('http://localhost:5000/routes/auth/register', data)
-      .then(response => {
+    axios.post('http://localhost:5000/user/register', data)
+      .then(() => {
         setMessage('Registration successful!');
         console.log('Registration successful!');
         console.log('User Entered Values:', data);

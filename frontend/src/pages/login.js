@@ -13,7 +13,7 @@ function Login() {
   
     try {
       // Make a POST request to the /login endpoint
-      const response = await axios.post('http://localhost:5000/routes/auth/login', {
+      const response = await axios.post('http://localhost:5000/user/login', {
         email,
         password,
       });
