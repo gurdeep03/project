@@ -38,8 +38,8 @@ const Ilmkosh = () => {
           className="book"
           style={{
             backgroundColor: genre.color,
-            color: '#FFD700', // Gold text for a royal look
-            fontFamily: 'Georgia, serif', // A more royal, elegant font
+            color: '#FFD700',// Gold text for a royal look
+            fontFamily: 'Georgia, serif',// A more royal, elegant font
           }}
           onMouseEnter={() => setHoveredBook(index)}
           onMouseLeave={() => setHoveredBook(null)}

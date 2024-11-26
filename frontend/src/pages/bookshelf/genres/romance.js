@@ -46,6 +46,7 @@ const Romance = () => {
             grid-gap: 20px;
             margin: 0 auto;
             padding: 0 20px;
+            margin-bottom: 100px;
           }
           .book-item:hover {
             transform: scale(1.1);

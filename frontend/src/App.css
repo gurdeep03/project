@@ -4,7 +4,11 @@
   height: 100vh; 
   background-size: cover;
   overflow-y: scroll;
-  
+  background-image: url("C:\Users\saini\Desktop\project\frontend\public\background.jpg");
+}
+
+.navbar-container {
+  background-image: url("C:\Users\saini\Desktop\project\frontend\public\background.jpg");
 }
 
 .navbar {
