@@ -21,7 +21,11 @@ function Login() {
       if (response.data.success) {
         console.log('Login successful:', response.data); // Debugging
         localStorage.setItem('token', response.data.token);
-        navigate('/new'); // Redirect after successful login
+        localStorage.setItem('user', (response.data.user));
+        navigate('/new');
+        window.location.reload(); 
+   
+         // Redirect after successful login
       } else {
         console.log('Login failed:', response.data.message); // Debugging
         setError(response.data.message || 'Invalid email or password');

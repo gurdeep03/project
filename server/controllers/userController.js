@@ -40,6 +40,16 @@ const Register = asyncHandler(async (req, res) => {
     res.status(400).json({ success: false, message: err.message });
   }
 });
+// Handle user logout
+const Logout = asyncHandler(async (req, res) => {
+  try {
+    // Invalidate the token or clear the cookie (if using cookies for token storage)
+    res.status(200).json({ success: true, message: 'Logout successful!' });
+  } catch (err) {
+    console.error('Logout error:', err.message);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
 
 // Handle user login
 const Login = asyncHandler(async (req, res) => {
@@ -65,4 +75,4 @@ const Login = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { Register, Login };
+module.exports = { Register, Login,Logout };

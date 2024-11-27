@@ -26,11 +26,10 @@ const Register = () => {
         console.log('Registration successful!');
         console.log('User Entered Values:', data);
         localStorage.setItem('token', response.data.token);
-  
-        setTimeout(() => {
-
-          navigate('/new'); // Adjust the route to correct path
-        }, 2000); // 2-second delay
+        localStorage.setItem('user', (response.data.user));
+          navigate('/new');
+          window.location.reload();  // Adjust the route to correct path
+         // 2-second delay
       })
       .catch(error => {
         const errorMessage = error.response?.data?.message || 'There was an error registering. Please try again.';
