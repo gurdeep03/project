@@ -48,7 +48,7 @@ const Navbar = () => {
             >
               <p>Bookshelf</p>
             </div>
-            <Link to="/my-library">My Library</Link>
+            <Link to="/upload">Upload books</Link>
           </div>
           <div className="cont3">
             <Link to="/login">Login</Link>
