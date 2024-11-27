@@ -1,10 +1,28 @@
-const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModels");
-require("dotenv").config();
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModels');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const Register= asyncHandler ( async (req, res) => {
+const autoLoginAfterRegister = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user || !(await user.matchPassword(password))) {
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ success: true, token, message: 'Registration and login successful!' });
+  } catch (err) {
+    console.error('Auto login error:', err.message);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+const Register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   // Validate input
@@ -13,10 +31,10 @@ const Register= asyncHandler ( async (req, res) => {
   }
 
   try {
-    const newUser = await User.registerUser(name, email, password); // Keep the existing registration code
-    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    await User.registerUser(name, email, password); // Keep the existing registration code
 
-    res.status(201).json({ success: true, token, message: 'Registration successful!' });
+    // Auto login after registration
+    await autoLoginAfterRegister(req, res);
   } catch (err) {
     console.error('Registration error:', err.message);
     res.status(400).json({ success: false, message: err.message });
@@ -24,7 +42,7 @@ const Register= asyncHandler ( async (req, res) => {
 });
 
 // Handle user login
-const Login = asyncHandler( async (req, res) => {
+const Login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Validate input
@@ -47,4 +65,4 @@ const Login = asyncHandler( async (req, res) => {
   }
 });
 
-module.exports = {Register, Login};
+module.exports = { Register, Login };

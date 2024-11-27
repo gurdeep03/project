@@ -20,7 +20,7 @@ const Ilmkosh = () => {
   const redirectToGenre = (genre) => {
     if(evt.key==="click")
       {
-          axios.get('https://www.googleapis.com/books/v1/volumes?q='+genre+'&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU'+'&maxResults=40')
+          axios.get('https://www.googleapis.com/books/v1/volumes?q='+free+'&key=AIzaSyA6SaT23KNiiA6DnUfUQTvFeyAcQEkwnSU'+'&maxResults=40')
           .then(res=>setData(res.data.items))
           .catch(err=>console.log(err))
           navigate(`/genre/${genre}`);

@@ -17,7 +17,7 @@ const Navbar = () => {
               className="bookshelf">
               <Link to="/bookshelf">Bookshelf</Link>
             </div>
-            <Link to="/my-library">My Library</Link>
+            <Link to="/upload">UploadBooks</Link>
           </div>
           <div className="cont3">
             <Link to="/login">Login</Link>

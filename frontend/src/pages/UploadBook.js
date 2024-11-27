@@ -1,42 +1,48 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
 const UploadBook = () => {
-    const [file, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [file, setFile] = useState(null);
     const [message, setMessage] = useState('');
-
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+  
+    const handleFileChange = (event) => {
+      setFile(event.target.files[0]);
     };
-
-    const handleUpload = async (e) => {
-        e.preventDefault();
-
-        if (!file) {
-            setMessage('Please select a file to upload.');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('title', title);
-        formData.append('description', description);
-
-        try {
-            const apiUrl = `${process.env.REACT_APP_API_URL}/books/upload`;
-            console.log(`Uploading to: ${apiUrl}`);
-            console.log('FormData:', formData);
-            const response = await axios.post(apiUrl, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            });
-
-            setMessage(response.data.message);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-            setMessage('Error uploading file.');
-        }
+  
+    const handleUpload = async (event) => {
+      event.preventDefault();
+  
+      if (!file) {
+        setMessage('Please select a file to upload.');
+        return;
+      }
+  
+      const token = localStorage.getItem('token');
+  
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+  
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('title', title);
+      formData.append('description', description);
+  
+      try {
+        const apiUrl = 'http://localhost:5000/books/upload';
+        console.log(`Uploading to: ${apiUrl}`);
+        console.log('FormData:', formData);
+        const response = await axios.post(apiUrl, formData, config);
+  
+        setMessage(response.data.message);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        setMessage('Error uploading file.');
+      }
     };
 
     return (
@@ -49,7 +55,7 @@ const UploadBook = () => {
                         align-items: center;
                         justify-content: center;
                         padding: 20px;
-                        background-color: #f0f0f0;
+                        background-color: #F0E2C6;
                         border-radius: 8px;
                         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                         width: 80%;
@@ -76,21 +82,28 @@ const UploadBook = () => {
                     .upload-book-container input[type="file"] {
                         padding: 12px;
                         margin: 0;
+                        background-color: #efebde;
                         border: 1px solid #ccc;
                         border-radius: 4px;
                         font-size: 16px;
                         width: 100%;
                         box-sizing: border-box;
                     }
+                    .upload-book-container input[type="file"] {
+                        padding: 12px;
+                        background-color: #efebde;
+                    }
 
                     .upload-book-container input[type="text"]:focus,
                     .upload-book-container textarea:focus,
                     .upload-book-container input[type="file"]:focus {
+                        background-color: #efebde;
                         border-color: #3E2723;
                         outline: none;
                     }
 
                     .upload-book-container textarea {
+                        background-color: #efebde;
                         resize: vertical;
                         min-height: 120px;
                     }
@@ -119,10 +132,7 @@ const UploadBook = () => {
                         text-align: center;
                     }
 
-                    .upload-book-container input[type="file"] {
-                        padding: 12px;
-                        background-color: #f8f9fa;
-                    }
+
 
                     /* Align labels properly above input fields */
                     .upload-book-container input[type="text"],
