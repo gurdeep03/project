@@ -7,6 +7,7 @@ const fileRoutes = require('./routes/booksRoutes');
 
 const app = express();
 
+app.get('/', (req, res) => { res.send('Working'); });
 // Middleware
 app.use(express.json());
 app.use(cors());
