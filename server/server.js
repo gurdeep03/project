@@ -10,7 +10,8 @@ const app = express();
 app.get('/', (req, res) => { res.send('Working'); });
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3001', // Allow requests from this origin
+ }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
