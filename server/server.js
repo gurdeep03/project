@@ -16,9 +16,13 @@ app.use(cors({ origin: 'http://localhost:3001', // Allow requests from this orig
  
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+console.log('Connecting to MongoDB with URI:', process.env.MONGO_URI);
+mongoose.set('debug', true); // Enable mongoose debug mode
+ mongoose.connect(process.env.MONGO_URI)
+ .then(() => console.log('MongoDB connected'))
+ .catch(err => { console.error('MongoDB connection error:', err.message);
+  process.exit(1); // Exit the process if there's a connection error 
+  });
 
 // Routes
 const authRoutes = require('./routes/userRoutes'); // Import auth routes
