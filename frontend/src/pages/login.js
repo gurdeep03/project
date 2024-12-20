@@ -13,7 +13,7 @@ function Login() {
   
     try {
       // Make a POST request to the /login endpoint
-      const response = await axios.post('https://server-jk66ocqhw-gurdeeps-projects-173ecbb4.vercel.app/user/login', {
+      const response = await axios.post('https://projectilmkosh.onrender.com/user/login', {
         email,
         password,
       });

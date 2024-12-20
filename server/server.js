@@ -10,7 +10,7 @@ const app = express();
 app.get('/', (req, res) => { res.send('Working'); });
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3001', // Allow requests from this origin
+app.use(cors({ origin: 'http://localhost:3000', // Allow requests from this origin
  }));
 
  

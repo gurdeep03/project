@@ -33,7 +33,7 @@ const UploadBook = () => {
       formData.append('description', description);
   
       try {
-        const apiUrl = 'https://server-jk66ocqhw-gurdeeps-projects-173ecbb4.vercel.app/books/upload';
+        const apiUrl = 'https://projectilmkosh.onrender.com/books/upload';
         console.log(`Uploading to: ${apiUrl}`);
         console.log('FormData:', formData);
         const response = await axios.post(apiUrl, formData, config);
