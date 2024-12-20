@@ -9,11 +9,32 @@ const app = express();
 
 app.get('/', (req, res) => { res.send('Working'); });
 // Middleware
-app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', // Allow requests from this origin
- }));
+const allowedOrigins = ["https://ilm-kosh.netlify.app", "http://localhost:3000", "http://localhost:3001"];
 
- 
+// Middleware
+app.use(express.json());
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
+
+// Handle preflight requests
+app.options('*', cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 
 // Connect to MongoDB
 console.log('Connecting to MongoDB with URI:', process.env.MONGO_URI);
